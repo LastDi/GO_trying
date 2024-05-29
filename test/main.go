@@ -11,8 +11,8 @@ func main() {
 	var taskID int
 	fmt.Scan(&taskID)
 
-	JackTasks <- taskID                     // assign the task to Jack
-	timer := time.NewTimer(time.Second * 1) // set time to complete the task
+	JackTasks <- taskID
+	timer := time.NewTimer(time.Second * 1)
 	defer timer.Stop()
 
 	for {

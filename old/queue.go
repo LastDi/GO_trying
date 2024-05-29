@@ -48,7 +48,6 @@ func find(str *string) string {
 	ay := strings.Count(*str, "Y")
 	ax := strings.Count(*str, "X")
 	fmt.Println("Z = ", az, ay, ax)
-	//todo проверять каунт X и Y если равны X > Y то использовать X
 	for i, ch := range *str {
 		switch ch {
 		case X:
@@ -74,7 +73,6 @@ func find(str *string) string {
 		case Z:
 			if xc > 1 && yc == 1 {
 				if bx.data < by.data {
-					fmt.Println("&&&&&&&&&&&")
 					arr[bx.data] = -1
 					arr[by.data] = -1
 					bx = bx.next
@@ -82,25 +80,21 @@ func find(str *string) string {
 					xc--
 					yc--
 				}
-				fmt.Println("------------")
 				arr[i] = -1
 				arr[bx.data] = -1
 				bx = bx.next
 				xc--
-			} else if yc > 0 { //by != nil {
-				fmt.Println("+++++++++++++")
+			} else if yc > 0 {
 				arr[i] = -1
 				arr[by.data] = -1
 				by = by.next
 				yc--
-			} else if xc > 0 { // bx != nil {
-				fmt.Println("!!!!!!!!!!!")
+			} else if xc > 0 {
 				arr[i] = -1
 				arr[bx.data] = -1
 				bx = bx.next
 				xc--
 			} else {
-				fmt.Println("=============")
 				fmt.Println(bx, by)
 				fmt.Println(xc, yc)
 				return "No-"

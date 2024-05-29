@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func main3() {
+func main() {
 	var in *bufio.Reader
 	var out *bufio.Writer
 	in = bufio.NewReader(os.Stdin)

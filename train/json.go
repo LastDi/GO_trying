@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func main5() {
+func main() {
 	var in *bufio.Reader
 	var out *bufio.Writer
 	in = bufio.NewReader(os.Stdin)
@@ -33,7 +33,6 @@ func main5() {
 			log.Fatal(err)
 		}
 		checkInterface(&jsonn)
-		//fmt.Println(jsonn)
 		marshal, _ := json.Marshal(&jsonn)
 		fmt.Println(string(marshal))
 	}
@@ -53,7 +52,6 @@ func checkInterface(val *interface{}) bool {
 			return true
 		} else {
 			var del []int
-			//del := make([]int, len(casted))
 			for i, v := range casted {
 				b := checkInterface(&v)
 				if b {

@@ -9,13 +9,13 @@ import (
 	"regexp"
 )
 
-type Folder2 struct {
-	Dir     string    `json:"dir"`
-	Files   []string  `json:"files"`
-	Folders []Folder2 `json:"folders"`
+type Folder struct {
+	Dir     string   `json:"dir"`
+	Files   []string `json:"files"`
+	Folders []Folder `json:"folders"`
 }
 
-func main6() {
+func main() {
 	var in *bufio.Reader
 	var out *bufio.Writer
 	in = bufio.NewReader(os.Stdin)
@@ -28,7 +28,7 @@ func main6() {
 	for k := 0; k < n; k++ {
 		var m int
 		fmt.Fscan(in, &m)
-		var root Folder2
+		var root Folder
 		err := json.NewDecoder(in).Decode(&root)
 		if err != nil {
 			log.Fatal(err)
@@ -39,7 +39,7 @@ func main6() {
 	}
 }
 
-func folderCheck(folder *Folder2, inf bool, res *int) {
+func folderCheck(folder *Folder, inf bool, res *int) {
 	if !inf {
 		for _, f := range folder.Files {
 			matched, _ := regexp.MatchString(".\\.hack$", f)

@@ -7,7 +7,7 @@ import (
 	"sort"
 )
 
-func main6() {
+func main() {
 	var in *bufio.Reader
 	var out *bufio.Writer
 	in = bufio.NewReader(os.Stdin)
@@ -37,7 +37,7 @@ func main6() {
 
 		i := 0
 		res := 0
-		var ss []int
+		var check []int
 		for i < len(arr) {
 			w := 0
 			for w <= m && i < len(arr) {
@@ -58,13 +58,12 @@ func main6() {
 					}
 				}
 			}
-			ss = append(ss, w)
+			check = append(check, w)
 			res++
 		}
 
 		r := res/n + res%n
 		fmt.Println(r)
-		fmt.Println(ss)
-		fmt.Println("-------------")
+		fmt.Println(check)
 	}
 }
