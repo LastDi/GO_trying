@@ -26,23 +26,14 @@ func main() {
 	var t int
 	fmt.Fscan(in, &t)
 
-	var sb strings.Builder
 	for i := 0; i < t; i++ {
 		var n int
 		fmt.Fscan(in, &n)
 		var s string
 		fmt.Fscan(in, &s)
-		sb.WriteString(find(&s))
-		sb.WriteString("\n")
-		//res := find(&s)
-		//fmt.Println(res)
+		res := find(&s)
+		fmt.Println(res)
 	}
-	//fmt.Println(sb.String())
-	//fmt.Println()
-
-	d1 := []byte(sb.String())
-	err := os.WriteFile("text.txt", d1, 0644)
-	fmt.Println(err)
 }
 
 func find(str *string) string {
@@ -53,7 +44,11 @@ func find(str *string) string {
 	var by *Node
 	xc := 0
 	yc := 0
-	zc := 0
+	az := strings.Count(*str, "Z")
+	ay := strings.Count(*str, "Y")
+	ax := strings.Count(*str, "X")
+	fmt.Println("Z = ", az, ay, ax)
+	//todo проверять каунт X и Y если равны X > Y то использовать X
 	for i, ch := range *str {
 		switch ch {
 		case X:
@@ -77,59 +72,54 @@ func find(str *string) string {
 			}
 			yc++
 		case Z:
-			zc++
-		}
-	}
-	for i, ch := range *str {
-		switch ch {
-		case Z:
-			if xc == yc+zc {
-				// todo cycle for
-				for bx != nil && by != nil && by.data > bx.data {
-					bx = bx.next
-					by = by.next
-				}
-				if bx != nil && by != nil && bx.next != nil && bx.next.data > by.data && bx.next.data < i {
-					//fmt.Println("--------")
-					arr[bx.data] = -2
-					arr[by.data] = -2
+			if xc > 1 && yc == 1 {
+				if bx.data < by.data {
+					fmt.Println("&&&&&&&&&&&")
+					arr[bx.data] = -1
+					arr[by.data] = -1
 					bx = bx.next
 					by = by.next
 					xc--
 					yc--
 				}
-				//fmt.Println("+++++++++")
+				fmt.Println("------------")
 				arr[i] = -1
 				arr[bx.data] = -1
 				bx = bx.next
 				xc--
-			} else if yc > 0 && by.data < i {
+			} else if yc > 0 { //by != nil {
+				fmt.Println("+++++++++++++")
 				arr[i] = -1
 				arr[by.data] = -1
 				by = by.next
 				yc--
-			} else if xc > 0 && bx.data < i {
+			} else if xc > 0 { // bx != nil {
+				fmt.Println("!!!!!!!!!!!")
 				arr[i] = -1
 				arr[bx.data] = -1
 				bx = bx.next
 				xc--
 			} else {
-				return "No"
+				fmt.Println("=============")
+				fmt.Println(bx, by)
+				fmt.Println(xc, yc)
+				return "No-"
 			}
-			zc--
-			//fmt.Println(arr)
 		}
+		fmt.Println(arr)
 	}
 
 	for bx != nil && by != nil {
 		if bx.data >= by.data {
-			return "No"
+			return "No="
 		}
 		bx = bx.next
 		by = by.next
 	}
 	if bx != nil || by != nil {
-		return "No"
+		//fmt.Println(bx, by)
+		//fmt.Println(xc, yc)
+		return "No+"
 	}
 	return "Yes"
 }
